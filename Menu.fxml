@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="125.0" layoutY="14.0" prefHeight="46.0" prefWidth="350.0" text="Vehicle Maintenance Log">
+         <font>
+            <Font name="Symbol" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="54.0" layoutY="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="View List" />
+      <Button layoutX="260.0" layoutY="200.0" mnemonicParsing="false" text="Add Vehicle" />
+      <Button layoutX="449.0" layoutY="200.0" mnemonicParsing="false" text="Suggestions" />
+   </children>
+</AnchorPane>
