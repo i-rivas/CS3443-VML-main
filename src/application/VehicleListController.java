@@ -9,7 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Model;
+//import model.Model;
 
 public class VehicleListController {
 	@FXML
