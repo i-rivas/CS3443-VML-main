@@ -8,9 +8,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SuggestionController">
    <children>
       <Button layoutX="499.0" layoutY="361.0" mnemonicParsing="false" onAction="#switch2Main" text="Return Home" />
-      <TextArea layoutX="25.0" layoutY="14.0" prefHeight="373.0" prefWidth="378.0" />
-      <Button layoutX="474.0" layoutY="69.0" mnemonicParsing="false" text="Search" />
-      <TextField layoutX="425.0" layoutY="27.0" />
+      <TextArea fx:id="message" layoutX="25.0" layoutY="14.0" prefHeight="373.0" prefWidth="378.0" />
+      <Button layoutX="474.0" layoutY="69.0" mnemonicParsing="false" onAction="#checkVehicleList" text="Search" />
+      <TextField fx:id="searchBar" layoutX="425.0" layoutY="27.0" />
       <Button layoutX="508.0" layoutY="325.0" mnemonicParsing="false" onAction="#goToList" text="Go To List" />
    </children>
 </AnchorPane>
