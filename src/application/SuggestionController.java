@@ -3,6 +3,8 @@ package application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -24,12 +26,27 @@ public class SuggestionController {
 	@FXML
     private TextArea message;
 
+	@FXML 
+    public void handleClearButton(ActionEvent event) {
+    	searchBar.clear();
+    	message.clear();
+    }
 	
 	@FXML
     public void checkVehicleList(ActionEvent event) throws IOException {
     	String vehicleToSearch = searchBar.getText().toString();
+    	if( vehicleToSearch.length() < 3 )
+    	{
+    		Alert a = new Alert(AlertType.NONE);
+    		// set alert type
+    		a.setAlertType(AlertType.ERROR); 
+    		// show the dialog 
+    		a.show();
+    		a.setContentText("Invalid name");
+    		return;
+    	}
     	Boolean val = Model.getVehicle(vehicleToSearch);
-    	message.setText("Hello");
+    	message.setText(vehicleToSearch);
     }
 	
 	@FXML

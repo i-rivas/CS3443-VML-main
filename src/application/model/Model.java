@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -21,6 +23,9 @@ public class Model {
 	
 	public static boolean getVehicle(String vehicleKey) throws FileNotFoundException, IOException {
 		Boolean inList = false;
+		String foundVeh = null;
+		String lastDate = null;
+		String vehIssue = null;
     	File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
     	
@@ -28,15 +33,31 @@ public class Model {
 			listofVehicles.add(read.nextLine());
     	}
     	read.close();
-    	String foundVal;
+    	
     	for(String veh: listofVehicles)
     	{
+    		
     		if( veh.contains(vehicleKey) )
     		{
     			inList = true;
+    			/*
     			int startIndex = veh.indexOf(vehicleKey);
-    			int endIndex = startIndex + vehicleKey.length() - 1;
-    			foundVal = veh.substring(startIndex, vehicleKey.length());
+    			int endIndex = startIndex + vehicleKey.length();
+    			foundVeh = veh.substring(startIndex, endIndex);
+    			*/
+    			// Create a Pattern object
+    			String pattern = "(.*)[ \\t]+([0-9]{2}/[0-9]{2}/[0-9]{4})[ \\t]+(.*)";
+    			Pattern r = Pattern.compile(pattern);
+
+    			// Now create matcher object.
+    			Matcher m = r.matcher(veh);
+    			if (m.find( )) {
+    				System.out.println("Found value: " + m.group(0) );
+    				System.out.println("Found value: " + m.group(1) );
+    				System.out.println("Found value: " + m.group(2) );
+    			}else {
+    				System.out.println("NO MATCH");
+    			}
     		}
     				
     	}
@@ -48,11 +69,14 @@ public class Model {
     		// show the dialog 
     		a.show();
     		a.setContentText("Vehicle does not exist in List");
-    	}
-    	//String foundVal = listofVehicles.get(listofVehicles.indexOf(vehicleKey));
-    	
-    	//System.out.println(foundVal);
+    	}    	
+    	System.out.println(foundVeh);
 		return true;
+	}
+	
+	public static void checkVehicle(String vehicleName, String date, String issue)
+	{
+		
 	}
 	
 	public static void getVehicleList(ListView<String> printList) throws FileNotFoundException {

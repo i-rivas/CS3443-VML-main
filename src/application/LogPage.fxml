@@ -13,9 +13,9 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ListView layoutX="59.0" layoutY="41.0" prefHeight="178.0" prefWidth="421.0" />
-      <Button layoutX="59.0" layoutY="247.0" mnemonicParsing="false" text="Click for Log" />
+      <ListView fx:id="LogList" layoutX="59.0" layoutY="41.0" prefHeight="178.0" prefWidth="421.0" />
+      <Button layoutX="59.0" layoutY="247.0" mnemonicParsing="false" onAction="#readVehicleList" text="Click for Log" />
       <Button layoutX="228.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Export" />
-      <Button layoutX="397.0" layoutY="247.0" mnemonicParsing="false" onAction="#switch2Main" prefHeight="25.0" prefWidth="83.0" text="Home" />
+      <Button layoutX="397.0" layoutY="247.0" mnemonicParsing="false" onAction="#loadMain" prefHeight="25.0" prefWidth="83.0" text="Home" />
    </children>
 </AnchorPane>
