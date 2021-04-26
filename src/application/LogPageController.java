@@ -10,9 +10,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -44,7 +47,7 @@ public class LogPageController extends Application{
 	}
 	
 	@FXML
-	ListView<Object> LogList;
+	ListView<String> LogList;
 	
 	@FXML
 	private void readVehicleList(ActionEvent event ) throws IOException {
@@ -62,6 +65,20 @@ public class LogPageController extends Application{
 		
 	}
 	
+	@FXML
+	private void exportVehicle(ActionEvent event) throws IOException {
+
+				String currentVehicle = LogList.getSelectionModel().getSelectedItem();
+				
+				try {
+					FileWriter myWriter = new FileWriter("VehicleExport.txt");
+					myWriter.write(currentVehicle);
+					myWriter.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		
 	
 	public static void main(String[] args) {
 		launch(args);
