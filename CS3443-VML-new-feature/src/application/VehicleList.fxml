@@ -15,14 +15,14 @@
                <items>
                   <SplitMenuButton mnemonicParsing="false" text="Filters">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
                       <MenuItem mnemonicParsing="false" text="Action 2" />
                     </items>
                   </SplitMenuButton>
+                  <Button fx:id="showList" mnemonicParsing="false" onAction="#showVehicleList" text="ShowList" />
                   <Button mnemonicParsing="false" onAction="#switch2Main" text="Home" />
                </items>
             </ToolBar>
-            <ListView layoutX="-2.0" layoutY="58.0" prefHeight="396.0" prefWidth="733.0" />
+            <ListView fx:id="printList" layoutX="-2.0" layoutY="58.0" prefHeight="396.0" prefWidth="733.0" />
          </children>
       </AnchorPane>
    </children>
