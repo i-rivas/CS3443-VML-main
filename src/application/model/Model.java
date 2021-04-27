@@ -40,13 +40,8 @@ public class Model {
     		if( veh.contains(vehicleKey) )
     		{
     			inList = true;
-    			/*
-    			int startIndex = veh.indexOf(vehicleKey);
-    			int endIndex = startIndex + vehicleKey.length();
-    			foundVeh = veh.substring(startIndex, endIndex);
-    			*/
     			// Create a Pattern object
-    			String pattern = "(.*)[ \\t]+([0-9]{2}/[0-9]{2}/[0-9]{4})[ \\t]+(.*)";
+    			String pattern = "([a-zA-Z0-9 ]+)[ \\t]+([0-9]{2}/[0-9]{2}/[0-9]{4})[ \\t]+([a-zA-Z0-9 ]+)";
     			Pattern r = Pattern.compile(pattern);
 
     			// Now create matcher object.
@@ -70,7 +65,7 @@ public class Model {
     		a.show();
     		a.setContentText("Vehicle does not exist in List");
     	}    	
-    	System.out.println(foundVeh);
+    	//System.out.println(foundVeh);
 		return true;
 	}
 	
