@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import application.model.Model;
+import application.model.Vehicle;
+
 import java.io.IOException;
 import java.util.*;
 import javafx.application.Application;
@@ -45,9 +47,24 @@ public class SuggestionController {
     		a.setContentText("Invalid name");
     		return;
     	}
-    	Boolean val = Model.getVehicle(vehicleToSearch);
+    	Vehicle foundVeh = Model.getVehicle(vehicleToSearch);
+    	if ( foundVeh == null )
+    	{
+    		Alert a = new Alert(AlertType.NONE);
+    		// set alert type
+    		a.setAlertType(AlertType.ERROR); 
+    		// show the dialog 
+    		a.show();
+    		a.setContentText("Vehicle not found in log, please try again");
+    		return;
+    	}
+    	String[] newText = Model.checkVehicle(foundVeh.getVehicleMake(), foundVeh.getlastCheckedDate(), foundVeh.getCurrentIssue());
     	message.setText(vehicleToSearch);
-    }
+    	for(int i = 0; i < newText.length; i++ )
+    	{
+    		message.appendText(newText[i]);
+    	}
+	}
 	
 	@FXML
     public void goToList(ActionEvent event) throws IOException {
