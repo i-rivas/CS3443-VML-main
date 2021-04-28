@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SuggestionController">
+   <children>
+      <Button layoutX="499.0" layoutY="361.0" mnemonicParsing="false" onAction="#switch2Main" text="Return Home" />
+      <TextArea fx:id="message" editable="false" layoutX="25.0" layoutY="14.0" prefHeight="373.0" prefWidth="378.0" />
+      <Button layoutX="474.0" layoutY="69.0" mnemonicParsing="false" onAction="#checkVehicleList" text="Search" />
+      <TextField fx:id="searchBar" layoutX="425.0" layoutY="27.0" />
+      <Button layoutX="508.0" layoutY="325.0" mnemonicParsing="false" onAction="#goToList" text="Go To List" />
+      <Button fx:id="clearButton" layoutX="473.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear" />
+   </children>
+</AnchorPane>
