@@ -21,7 +21,6 @@ public class Model {
 	
 	private static ArrayList<String> items = new ArrayList<String>();
 	public static ArrayList<Vehicle> listofVehicles = new ArrayList<Vehicle>();
-	public static ArrayList<String> listofVehicles = new ArrayList<String>();
 	
 	public static void getVehicleList(ListView<String> printList) throws FileNotFoundException {
     	File inFile = new File("VehicleList.txt");
