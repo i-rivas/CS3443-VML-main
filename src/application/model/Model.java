@@ -1,26 +1,20 @@
 package application.model;
 /*
+ * Vehicle Test Ideas
  * Change oil every 5,000 miles
  * Change Transmission fluid every 30,000 miles
  * Rotate tires every 7,000 miles
  * Check vehicle every 6 months
  */
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 
 public class Model {
@@ -71,94 +65,67 @@ public class Model {
     	*/
 		return null;
     }
-    //public static ArrayList<String> listofVehicles = new ArrayList<String>();
-    /*
-	public static boolean getVehicle(String vehicleKey) throws FileNotFoundException, IOException {
-		Boolean inList = false;
-		String foundVeh = null;
-		String lastDate = null;
-		String vehIssue = null;
-    	File inFile = new File("VehicleList.txt");
-		Scanner read = new Scanner(inFile);
-    	
-    	while (read.hasNextLine()) {
-			listofVehicles.add(read.nextLine());
-    	}
-    	read.close();
-    	
-    	for(String veh: listofVehicles)
-    	{
-    		System.out.println(veh);
-    		if( veh.contains(vehicleKey) )
-    		{
-    			inList = true;
-    			// Create a Pattern object
-    			String pattern = "([a-zA-Z0-9 ]+)[ \\t]+([0-9]{2}/[0-9]{2}/[0-9]{4})[ \\t]+([a-zA-Z0-9 ]+)";
-    			Pattern r = Pattern.compile(pattern);
 
-    			// Now create matcher object.
-    			Matcher m = r.matcher(veh);
-    			if (m.find( )) {
-    				System.out.println("Found value: " + m.group(0) );
-    				System.out.println("Found value: " + m.group(1) );
-    				System.out.println("Found value: " + m.group(2) );
-    			}else {
-    				System.out.println("NO MATCH");
-    			}
-    		}
-    				
-    	}
-    	if( inList == false )
-    	{
-    		Alert a = new Alert(AlertType.NONE);
-    		// set alert type
-    		a.setAlertType(AlertType.ERROR); 
-    		// show the dialog 
-    		a.show();
-    		a.setContentText("Vehicle does not exist in List");
-    	}    	
-    	//System.out.println(foundVeh);
-		return true;
-	}
-	*/
-	
 	public static String[] checkVehicle(String vehicleName, String date, String issue)
 	{
 		String[] messages = new String[5];
 		int i = 0;
 		// Date format: mm/dd/yyyy
+		 // Get an instance of LocalTime
+        // from date
+        LocalDate currentDate = LocalDate.now();
+        // Get day from date
+        int day = currentDate.getDayOfMonth();
+        // Get month from date
+        Month month = currentDate.getMonth();
+        int todaymonth = month.getValue();
+        // Get year from date
+        int year = currentDate.getYear();
+  
+        // Print the day, month, and year
+        System.out.println("Day: " + day);
+        System.out.println("Month: " + month);
+        System.out.println("Year: " + year);
 		int yeardiff = 2021 - Integer.parseInt(date.substring(6));
-		int monthdiff = 12 - Integer.parseInt(date.substring(3,4));
-		int daydiff;
+		int monthdiff = todaymonth - Integer.parseInt(date.substring(0,2));
+		System.out.println("month substring = " + date.substring(0,2) );
+		System.out.println("monthdiff = " + monthdiff);
+		System.out.println("monthval = " + todaymonth);
+		//int daydiff;
 		if( yeardiff > 0 )
 		{
-			messages[i] = "It has been " + yeardiff + " years since your last maintenance";
+			messages[i] = "It has been " + yeardiff + " years since your last maintenance\n";
 			i++;
 		}
 		else if ( monthdiff > 6 )
 		{
-			messages[i] = "It has been " + monthdiff + " months since your last maintenance";
+			messages[i] = "It has been " + monthdiff + " months since your last maintenance\n";
+			i++;
+		}
+		else 
+		{
+			messages[i] = "Your last maintenance was already done within the last 6 months\n";
 			i++;
 		}
 	
 		if( issue.equals("Engine Repair") )
 		{
-			messages[i] = "You need a engine repair";
+			messages[i] = "You need a engine repair\n";
 			i++;
 		}
 		if( issue.equals("Vehicle Maintenance") )
 		{
-			messages[i] = "You need vehicle maintenance";
+			messages[i] = "You need vehicle maintenance\n";
 			i++;
 		}
 		if( issue.equals("Oil Leak Repair") )
 		{
-			messages[i] = "You need an oil leak repaired";
+			messages[i] = "You need an oil leak repaired\n";
 			i++;
 		}
 		if( issue.equals("Broken Windowshield") )
 		{
-			messages[i] = "You need a windowshield replacement";
+			messages[i] = "You need a windowshield replacement\n";
 			i++;
 		}
 		return messages;

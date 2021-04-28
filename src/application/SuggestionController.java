@@ -1,5 +1,11 @@
 package application;
 
+import java.io.IOException;
+
+import application.model.Model;
+import application.model.Vehicle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -8,16 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import application.model.Model;
-import application.model.Vehicle;
-
-import java.io.IOException;
-import java.util.*;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 
 public class SuggestionController {
 	AnchorPane mainPane;
@@ -26,7 +23,7 @@ public class SuggestionController {
     private TextField searchBar;
 	
 	@FXML
-    private TextArea message;
+    private TextArea message = new TextArea();
 
 	@FXML 
     public void handleClearButton(ActionEvent event) {
@@ -59,9 +56,13 @@ public class SuggestionController {
     		return;
     	}
     	String[] newText = Model.checkVehicle(foundVeh.getVehicleMake(), foundVeh.getlastCheckedDate(), foundVeh.getCurrentIssue());
-    	message.setText(vehicleToSearch);
+    	message.setText(vehicleToSearch + "\n");
     	for(int i = 0; i < newText.length; i++ )
     	{
+    		if( newText[i] == null )
+    		{
+    			return;
+    		}
     		message.appendText(newText[i]);
     	}
 	}
