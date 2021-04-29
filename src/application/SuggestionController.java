@@ -27,6 +27,9 @@ public class SuggestionController {
 	AnchorPane mainPane;
 	
 	@FXML
+    private TextField scheduledVeh;
+	
+	@FXML
     private TextField timeField;
 	
 	@FXML
@@ -90,11 +93,12 @@ public class SuggestionController {
 	@FXML
 	private void exportAppointment(ActionEvent event) throws IOException {
 		//Note for later: Get the vehicle name from search bar!!!
+		String vehName = scheduledVeh.getText();
 		LocalDate date = appointDatePicker.getValue();
 		String formattedDate = date.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
 		String shop = repairShop.getText();
 		String time = timeField.getText();
-		String appointment = formattedDate + ", " + time + ", " + shop;
+		String appointment = vehName + ", " + formattedDate + ", " + time + ", " + shop;
 		try {
 			File file = new File("Schedule.txt");
 			FileWriter myWriter = new FileWriter(file, true);
@@ -103,6 +107,13 @@ public class SuggestionController {
 			bufferWrite.newLine();
 			bufferWrite.close();
 			myWriter.close();
+			Alert a = new Alert(AlertType.NONE);
+    		// set alert type
+    		a.setAlertType(AlertType.INFORMATION); 
+    		// show the dialog 
+    		a.show();
+    		a.setContentText("Appointment created and sent to file Schedule.txt");
+    		return;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -111,6 +122,7 @@ public class SuggestionController {
 	@FXML
     public void clearFields(ActionEvent event) {
 		appointDatePicker.setValue(null);
+		scheduledVeh.clear();
 		timeField.clear();
 		repairShop.clear();
     }
