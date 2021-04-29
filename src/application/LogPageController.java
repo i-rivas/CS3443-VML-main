@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -23,21 +24,19 @@ import javafx.fxml.FXML;
 
 public class LogPageController extends Application{
 	
+	//Initializing a Label item for use in the Export method.
+	@FXML
+	Label txt2display;
 	
+	//Initialized a ListView item that displays the car list.
+	@FXML
+	ListView<String> loglist;
 	
 	@Override
 	public void start(Stage primaryStage) {
-		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("LogPage.fxml"));
-			Scene scene = new Scene(root,536,322);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
+	//Method that loads the main menu scene used in the "Home" Button.
 	@FXML
 	private void loadMain(ActionEvent event) throws IOException {
 		Parent main = FXMLLoader.load(getClass().getResource("Menu.fxml"));
@@ -47,67 +46,35 @@ public class LogPageController extends Application{
         mainStage.show();
 	}
 	
+	//Method that loads the "AddPage.fxml" scene and is assigned to the "Add Car" Button.
 	@FXML
-	ListView<String> LogList;
-	
-	@FXML
-	private void readVehicleList(ActionEvent event ) throws IOException {
-		LogList.getItems().clear();
-		File VehicleInfo = new File("VehicleList.txt");
-		try (Scanner read = new Scanner(VehicleInfo)) {
-			ArrayList<String> info = new ArrayList<String>();
-			
-			while (read.hasNextLine()) {
-				info.add(read.nextLine());
-			}
-			for (String cars: info) {
-				LogList.getItems().add(cars);
-			}
-		}
-		
+	private void loadAddVehicle(ActionEvent event) throws IOException {
+		Parent main = FXMLLoader.load(getClass().getResource("AddPage.fxml"));
+        Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene mainScene = new Scene(main);
+        mainStage.setScene(mainScene);
+        mainStage.show();
 	}
 	
 
 	
-	//Export method
+	//Method that reads the list of Vehicle and displays them to the LogList ListView String variable in order to display the Text file's contents.
+	//This method is assigned to the "Refresh Log" button.
+	@FXML
+	private void readVehicleList(ActionEvent event) throws IOException {
+		
+		Model.readVehicleList(loglist, txt2display);
+
+	}
+	
+	
+
+	//This method gets the user's highlighted row and writes it to the "VehicleExport.txt" file. It is assigned to the "Export" button.
 	@FXML
 	private void exportVehicle(ActionEvent event) throws IOException {
 
-				String currentVehicle = LogList.getSelectionModel().getSelectedItem();
-				
-				try {
-					FileWriter myWriter = new FileWriter("VehicleExport.txt");
-					myWriter.write(currentVehicle);
-					myWriter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+		Model.exportVehicle(loglist, txt2display);
+
 			}
-	
-	@FXML
-	public TextArea CarTxt;
-	
-	@FXML
-	public TextArea MileageTxt;
-	
-	@FXML
-	public TextArea PMileageTxt;
-	
-	@FXML
-	private void addVehicle(ActionEvent event) throws IOException {
-		String MakeModel = CarTxt.getText().toString();
-		String Mileage = MileageTxt.getText().toString();
-		String LastServiceMileage = PMileageTxt.getText().toString();
 		
-		Model.addVehicle(MakeModel, Mileage, LastServiceMileage);
-		
-		CarTxt.clear();
-		MileageTxt.clear();
-		PMileageTxt.clear();
-	}
-		
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
 }

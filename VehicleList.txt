@@ -8,3 +8,4 @@ Chrysler Pacifica	09/25/2021	Interior Repair
 Volkswagen Golf	   12/03/2021	A/C Repair
 Porsche 911 Targa	07/03/2021	Broken Windowshield
 Ford F-150	11/29/2021	Rearview Mirror Repair
+Ford   Focus   2011   190000   11/19/2019   18000

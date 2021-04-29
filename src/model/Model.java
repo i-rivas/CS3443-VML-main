@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,8 +21,8 @@ import java.util.TreeSet;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 
@@ -98,8 +99,8 @@ public class Model {
     	{
     		// Split 1 line of text into 3 parts, vehicleName at arr[0], date at arr[1], issue at arr[2]
     		arr = line.split("	");
-    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], arr[2]);
-    		listofVehicles.add(newVehicle);
+//    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], arr[2]);
+  //  		listofVehicles.add(newVehicle);
     	}
     	
     	for(Vehicle veh: listofVehicles)
@@ -189,15 +190,55 @@ public class Model {
 		return messages;
 	}
 	
-	//Method that adds vehicle into the VehicleList.txt file @Isai
-	public static void addVehicle(String makeModel, String mileage, String lastServiceMileage) throws IOException {
+
+	//This method adds vehicle into the VehicleList.txt file @Isai
+	public static void addVehicle(String Make, String CarModel, String Year, String TotalMileage, String DateOfLastMaintenance, String MileageOfLastMaintenance) throws IOException {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("VehicleList.txt", true));
 			out.newLine();
-			out.write(makeModel + "	" + mileage + " " + lastServiceMileage);
+			out.write(Make + "   " + CarModel + "   " + Year  + "   " + TotalMileage  + "   " + DateOfLastMaintenance  + "   " + MileageOfLastMaintenance);
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//This method reads VehicleList.txt file to ListView item @Isai
+	public static void readVehicleList(ListView<String> loglist, Label txt2display) throws FileNotFoundException {
+		
+		txt2display.setText("");
+		loglist.getItems().clear();
+		
+	
+		
+		File VehicleInfo = new File("VehicleList.txt");
+		try (Scanner read = new Scanner(VehicleInfo)) {
+			ArrayList<String> info = new ArrayList<String>();
+			
+			while (read.hasNextLine()) {
+				info.add(read.nextLine());
+			}
+			for (String cars: info) {
+				loglist.getItems().add(cars);
+			}
+		}
+		
+	}
+
+	//This method adds exports highlighted vehicle @Isai
+	public static void exportVehicle(ListView<String> loglist, Label txt2display) {
+		String currentVehicle = loglist.getSelectionModel().getSelectedItem();
+		
+		try {
+			FileWriter myWriter = new FileWriter("VehicleExport.txt");
+			myWriter.write(currentVehicle);
+			myWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		txt2display.setText("Successfully Exported!");
+		
 	}
 }
