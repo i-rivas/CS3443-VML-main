@@ -1,7 +1,9 @@
 package model;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -25,12 +27,13 @@ import javafx.scene.control.ListView;
 
 public class Model {
 	
-	private static ArrayList<String> items = new ArrayList<String>();
+	private static ArrayList<String> items;
 	public static ArrayList<Vehicle> listofVehicles = new ArrayList<Vehicle>();
 	
 	public static void getVehicleList(ListView<String> printList) throws FileNotFoundException {
     	File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
+		items = new ArrayList<String>();
     	
     	while (read.hasNextLine()) {
 			items.add(read.nextLine());
@@ -44,6 +47,7 @@ public class Model {
 	public static void getVehicleListAlpha(ListView<String> printList) throws FileNotFoundException {
 		File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
+		items = new ArrayList<String>();
     	
     	while (read.hasNextLine()) {
 			items.add(read.nextLine());
@@ -62,6 +66,7 @@ public class Model {
 		Pattern pattern = Pattern.compile("([0-9]{2}/[0-9]{2}/[0-9]{4})");
 		Matcher matcher;
 		int count = 0;
+		items = new ArrayList<String>();
     	
     	while (read.hasNextLine()) {
 			items.add(read.nextLine());
@@ -77,10 +82,6 @@ public class Model {
     	for (String key : keys) { 
     	   printList.getItems().add(dates.get(key));
     	}
-    	
-    	/*for (String inv: items) {
-    		printList.getItems().add(inv);
-    	}*/
         read.close();
 	}
 	
@@ -191,5 +192,17 @@ public class Model {
 			i++;
 		}
 		return messages;
+	}
+	
+	//Method that adds vehicle into the VehicleList.txt file @Isai
+	public static void addVehicle(String makeModel, String mileage, String lastServiceMileage) throws IOException {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter("VehicleList.txt", true));
+			out.newLine();
+			out.write(makeModel + "	" + mileage + " " + lastServiceMileage);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
