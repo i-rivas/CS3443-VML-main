@@ -89,9 +89,9 @@ public class Model {
 	public static Vehicle getVehicle(String vehicleKey) throws FileNotFoundException, IOException 
     {
     	Boolean inList = false;
-    	File inFile = new File("VehicleList2.txt");
+    	File inFile = new File("VehicleList3.txt");
 		Scanner read = new Scanner(inFile);
-		String[] arr;
+		String[] arr = new String[6];
     	ArrayList<String> textList = new ArrayList<String>();
     	while (read.hasNextLine()) {
 			textList.add(read.nextLine());
@@ -105,7 +105,7 @@ public class Model {
     		int year = Integer.parseInt(arr[2]);
     		int mileage = Integer.parseInt(arr[3]);
     		int mileageSince =   Integer.parseInt(arr[5]);
-    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], year, mileage, arr[4], mileageSince );
+    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], year, mileage, arr[4], mileageSince);
     		listofVehicles.add(newVehicle);
     	}
     	
