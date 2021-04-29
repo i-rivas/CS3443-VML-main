@@ -35,7 +35,7 @@ public class MenuControl {
     
     @FXML
     public void goToSuggestions(ActionEvent event) throws IOException {
-    	mainPane = FXMLLoader.load(getClass().getResource("Menu.fxml"));// pane you are GOING TO
+    	mainPane = FXMLLoader.load(getClass().getResource("VehicleSuggestion.fxml"));// pane you are GOING TO
         Scene scene = new Scene(mainPane);// pane you are GOING TO show
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();// pane you are ON
         window.setScene(scene);

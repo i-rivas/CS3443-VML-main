@@ -2,8 +2,8 @@ package application;
 
 import java.io.IOException;
 
-import application.model.Model;
-import application.model.Vehicle;
+import model.Model;
+import model.Vehicle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
