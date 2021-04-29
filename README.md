@@ -1,2 +1,12 @@
 # CS3443-VML-main
-The vehicle maintenance log application will track and record all the repairs and statuses of each vehicle. For each repairs and evaluations made, a record is kept to track the history of the vehicle.
+
+Vehicle Maintenance Log
+
+Group 15: Auto-Pilots
+
+Team members:
+Isai Rivas
+James Le
+Diego Zamora
+
+The Vehicle Maintenance Log application keeps a record of the user's vehicles. It is used to check for necessary maintenenace, recal notifications, and scheduling appointments. A user can add any make or modle of their choice and export their choice into a text file. Lastly, a user can view and sort their list as they wish.
