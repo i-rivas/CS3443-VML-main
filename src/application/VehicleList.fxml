@@ -16,7 +16,7 @@
                   <SplitMenuButton fx:id="option_default" mnemonicParsing="false" onAction="#showVehicleList" text="Most Recent">
                     <items>
                       <MenuItem fx:id="option1" mnemonicParsing="false" onAction="#showVehicleListAlpha" text="Alphabetically" />
-                      <MenuItem fx:id="option2" mnemonicParsing="false" text="Date" />
+                      <MenuItem fx:id="option2" mnemonicParsing="false" onAction="#showVehicleListDate" text="Date" />
                     </items>
                   </SplitMenuButton>
                   <Button fx:id="showList" mnemonicParsing="false" onAction="#showVehicleList" text="ShowList" />

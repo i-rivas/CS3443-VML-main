@@ -41,12 +41,20 @@ public class VehicleListController {
 	
 	@FXML
     public void showVehicleList() throws FileNotFoundException {
-    	Model.getVehicleList(printList);
+		printList.getItems().clear();
+		Model.getVehicleList(printList);
     }
 	
 	@FXML
     public void showVehicleListAlpha() throws FileNotFoundException {
-    	Model.getVehicleListAlpha(printList);
+    	printList.getItems().clear();
+		Model.getVehicleListAlpha(printList);
+    }
+	
+	@FXML
+	public void showVehicleListDate() throws FileNotFoundException {
+		printList.getItems().clear();
+		Model.getVehicleListDate(printList);
     }
 	
 	@FXML
