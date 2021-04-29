@@ -99,7 +99,10 @@ public class Model {
     	{
     		// Split 1 line of text into 3 parts, vehicleName at arr[0], date at arr[1], issue at arr[2]
     		arr = line.split("	");
-    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], arr[2]);
+    		int year = Integer.parseInt(arr[2]);
+    		int mileage = Integer.parseInt(arr[3]);
+    		int mileageSince =   Integer.parseInt(arr[5]);
+    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], year, mileage, arr[4], mileageSince );
     		listofVehicles.add(newVehicle);
     	}
     	
