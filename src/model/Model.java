@@ -126,38 +126,40 @@ public class Model {
 		return null;
     }
 	
-	public static String[] checkVehicle(String vehicleName, String date, String issue)
+	public static String[] checkVehicle(String vehicleMake, String vehicleModel, int vehicleYear, int totalMileage, String date, int mileageSinceMT) 
 	{
 		String[] messages = new String[5];
 		int i = 0;
-		// Date format: mm/dd/yyyy
-		 // Get an instance of LocalTime
-        // from date
+		
         LocalDate currentDate = LocalDate.now();
-        // Get day from date
         int day = currentDate.getDayOfMonth();
-        // Get month from date
         Month month = currentDate.getMonth();
         int todaymonth = month.getValue();
-        // Get year from date
-        int year = currentDate.getYear();
-  
-        // Print the day, month, and year
-        System.out.println("Day: " + day);
-        System.out.println("Month: " + month);
-        System.out.println("Year: " + year);
-		int yeardiff = 2021 - Integer.parseInt(date.substring(6));
-		int monthdiff = todaymonth - Integer.parseInt(date.substring(0,2));
-		System.out.println("month substring = " + date.substring(0,2) );
+        int currYear = currentDate.getYear();
+        
+        int yearOfVeh = Integer.parseInt(date.substring(6));
+        int monthOfVeh = Integer.parseInt(date.substring(0,2));
+        int dayOfVeh = Integer.parseInt(date.substring(3,5));
+		int yeardiff;
+		int monthdiff;
+		
+
+        LocalDate vehDate = LocalDate.of(yearOfVeh, monthOfVeh, dayOfVeh);
+        System.out.println("Day: " + vehDate.getDayOfMonth());
+        System.out.println("Month: " + vehDate.getMonth());
+        System.out.println("Year: " + vehDate.getYear());
+		Period diff = Period.between(vehDate, currentDate);
+		yeardiff = diff.getYears();
+		monthdiff = diff.getMonths();
+		System.out.println("yeardiff = " + yeardiff);
 		System.out.println("monthdiff = " + monthdiff);
-		System.out.println("monthval = " + todaymonth);
-		//int daydiff;
+
 		if( yeardiff > 0 )
 		{
-			messages[i] = "It has been " + yeardiff + " years since your last maintenance\n";
+			messages[i] = "It has been " + yeardiff + " years and " + monthdiff + " months since your last maintenance\n";
 			i++;
 		}
-		else if ( monthdiff > 6 )
+		else if ( monthdiff >= 6 )
 		{
 			messages[i] = "It has been " + monthdiff + " months since your last maintenance\n";
 			i++;
@@ -167,27 +169,23 @@ public class Model {
 			messages[i] = "Your last maintenance was already done within the last 6 months\n";
 			i++;
 		}
+		
+		if ( mileageSinceMT >= 7500 )
+		{
+			messages[i] = "Your vehicle needs an oil change\n";
+			i++;
+		}
+		if ( mileageSinceMT >= 30000 )
+		{
+			messages[i] = "Your vehicle needs an transmission fluid change\n";
+			i++;
+		}
+		if ( mileageSinceMT >= 5000)
+		{
+			messages[i] = "Your vehicle needs its tires rotated";
+			i++;
+		}
 	
-		if( issue.equals("Engine Repair") )
-		{
-			messages[i] = "You need a engine repair\n";
-			i++;
-		}
-		if( issue.equals("Vehicle Maintenance") )
-		{
-			messages[i] = "You need vehicle maintenance\n";
-			i++;
-		}
-		if( issue.equals("Oil Leak Repair") )
-		{
-			messages[i] = "You need an oil leak repaired\n";
-			i++;
-		}
-		if( issue.equals("Broken Windowshield") )
-		{
-			messages[i] = "You need a windowshield replacement\n";
-			i++;
-		}
 		return messages;
 	}
 	
