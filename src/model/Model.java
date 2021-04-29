@@ -12,7 +12,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,8 +29,7 @@ public class Model {
 	
 	private static ArrayList<String> items = new ArrayList<String>();
 	public static ArrayList<Vehicle> listofVehicles = new ArrayList<Vehicle>();
-
-
+	
 	public static void getVehicleList(ListView<String> printList) throws FileNotFoundException {
     	File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
@@ -58,28 +61,28 @@ public class Model {
 		File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
 		HashMap<String, String> dates = new HashMap<String, String>();
-		Pattern pattern = Pattern.compile("([0-9]{2}-[0-9]{2}-[0-9]{4})");
+		Pattern pattern = Pattern.compile("([0-9]{2}/[0-9]{2}/[0-9]{4})");
 		Matcher matcher;
 		int count = 0;
     	
     	while (read.hasNextLine()) {
 			items.add(read.nextLine());
 			matcher = pattern.matcher(items.get(count));
-
-		      if(matcher.find()) {
-		         MatchResult result = matcher.toMatchResult();
-		         System.out.println(result.end());         
-		      }
+			if (matcher.find()) {
+				dates.put(matcher.group(), items.get(count));
+			}
 			count++;
     	}
+    	System.out.println(dates);
     	
-    	for (String inv: items) {
-    		printList.getItems().add(inv);
+    	SortedSet<String> keys = new TreeSet<>(dates.keySet());
+    	for (String key : keys) { 
+    	   printList.getItems().add(dates.get(key));
     	}
         read.close();
 	}
 	
-    public static Vehicle getVehicle(String vehicleKey) throws FileNotFoundException, IOException 
+	public static Vehicle getVehicle(String vehicleKey) throws FileNotFoundException, IOException 
     {
     	Boolean inList = false;
     	File inFile = new File("VehicleList2.txt");
