@@ -111,7 +111,7 @@ public class Model {
     	
     	for(Vehicle veh: listofVehicles)
     	{
-    		if( vehicleKey.equals(veh.getVehicleMake()) )
+    		if( vehicleKey.equals(veh.getVehicleName()) )
     		{
     			inList = true;
     			return veh;
