@@ -55,7 +55,7 @@ public class SuggestionController {
     		a.setContentText("Vehicle not found in log, please try again");
     		return;
     	}
-    	String[] newText = Model.checkVehicle(foundVeh.getVehicleMake(), foundVeh.getVehicleYear(), foundVeh.getTotalMileage(), foundVeh.getlastMaintenanceDate(), foundVeh.getMileageSinceMT() );
+    	String[] newText = Model.checkVehicle(foundVeh.getVehicleMake(), foundVeh.getVehicleModel(), foundVeh.getVehicleYear(), foundVeh.getTotalMileage(), foundVeh.getlastMaintenanceDate(), foundVeh.getMileageSinceMT() );
     	message.setText(vehicleToSearch + "\n");
     	for(int i = 0; i < newText.length; i++ )
     	{

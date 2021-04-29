@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,16 +40,16 @@ public class Model {
     	{
     		// Split 1 line of text into 3 parts, vehicleName at arr[0], date at arr[1], issue at arr[2]
     		arr = line.split("	");
-    		int year = Integer.parseInt(arr[1]);
-    		int mileage = Integer.parseInt(arr[2]);
-    		int mileageSince =   Integer.parseInt(arr[4]);
-    		Vehicle newVehicle = new Vehicle(arr[0], year, mileage, arr[3], mileageSince );
+    		int year = Integer.parseInt(arr[2]);
+    		int mileage = Integer.parseInt(arr[3]);
+    		int mileageSince =   Integer.parseInt(arr[5]);
+    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], year, mileage, arr[4], mileageSince );
     		listofVehicles.add(newVehicle);
     	}
     	
     	for(Vehicle veh: listofVehicles)
     	{
-    		if( vehicleKey.equals(veh.getVehicleMake()) )
+    		if( vehicleKey.equals(veh.getVehicleName()) )
     		{
     			inList = true;
     			return veh;
@@ -70,7 +71,7 @@ public class Model {
 		return null;
     }
 
-    public static String[] checkVehicle(String vehicleMake, int vehicleYear, int totalMileage, String date, int mileageSinceMT) 
+    public static String[] checkVehicle(String vehicleMake, String vehicleModel, int vehicleYear, int totalMileage, String date, int mileageSinceMT) 
 	{
 		String[] messages = new String[5];
 		int i = 0;
@@ -84,26 +85,41 @@ public class Model {
         Month month = currentDate.getMonth();
         int todaymonth = month.getValue();
         // Get year from date
-        int year = currentDate.getYear();
-  
-        // Print statements for checking
-      // System.out.println("Day: " + day);
-       // System.out.println("Month: " + month);
-       // System.out.println("Year: " + year);
-        //System.out.println("month substring = " + date.substring(0,2) );
-		//System.out.println("monthdiff = " + monthdiff);
-		//System.out.println("monthval = " + todaymonth);
         
-		int yeardiff = 2021 - Integer.parseInt(date.substring(6));
-		int monthdiff = todaymonth - Integer.parseInt(date.substring(0,2));
+        int currYear = currentDate.getYear();
+        int yearOfVeh = Integer.parseInt(date.substring(6));
+        int monthOfVeh = Integer.parseInt(date.substring(0,2));
+        int dayOfVeh = Integer.parseInt(date.substring(3,5));
+		int yeardiff = currYear - yearOfVeh;
+		//int monthdiff = todaymonth - Integer.parseInt(date.substring(0,2));
+		int monthdiff = (currYear - yearOfVeh) * 12 + ( todaymonth - monthOfVeh ) + 1;
 		
-		//int daydiff;
+        // Print statements for checking
+		/*
+      System.out.println("Day: " + day);
+       System.out.println("Month: " + month);
+       System.out.println("Year: " + currYear);
+              System.out.println("YearOfVeh: " + yearOfVeh);
+        System.out.println("month substring = " + date.substring(0,2) );
+		System.out.println("monthdiff = " + monthdiff);
+		System.out.println("monthval = " + todaymonth);
+        */
+        LocalDate vehDate = LocalDate.of(yearOfVeh, monthOfVeh, dayOfVeh);
+        System.out.println("Day: " + vehDate.getDayOfMonth());
+       System.out.println("Month: " + vehDate.getMonth());
+       System.out.println("Year: " + vehDate.getYear());
+		Period diff = Period.between(vehDate, currentDate);
+		yeardiff = diff.getYears();
+		monthdiff = diff.getMonths();
+		System.out.println("yeardiff = " + yeardiff);
+		System.out.println("monthdiff = " + monthdiff);
+
 		if( yeardiff > 0 )
 		{
-			messages[i] = "It has been " + yeardiff + " years since your last maintenance\n";
+			messages[i] = "It has been " + yeardiff + " years and " + monthdiff + " months since your last maintenance\n";
 			i++;
 		}
-		if ( monthdiff > 6 )
+		else if ( monthdiff >= 6 )
 		{
 			messages[i] = "It has been " + monthdiff + " months since your last maintenance\n";
 			i++;
