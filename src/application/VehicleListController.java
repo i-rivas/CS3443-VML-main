@@ -3,7 +3,6 @@ package application;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import application.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Model;
 
 public class VehicleListController {
 	@FXML

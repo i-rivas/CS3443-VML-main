@@ -13,5 +13,6 @@
       <TextField fx:id="searchBar" layoutX="425.0" layoutY="27.0" />
       <Button layoutX="508.0" layoutY="325.0" mnemonicParsing="false" onAction="#goToList" text="Go To List" />
       <Button fx:id="clearButton" layoutX="473.0" layoutY="123.0" mnemonicParsing="false" onAction="#handleClearButton" text="Clear" />
+      <DatePicker layoutX="408.0" layoutY="233.0" />
    </children>
 </AnchorPane>

@@ -1,9 +1,9 @@
-package application.model;
+package model;
 /*
  * Vehicle Test Ideas
- * Change oil every 5,000 miles
+ * Change oil every 7,500 miles
  * Change Transmission fluid every 30,000 miles
- * Rotate tires every 7,000 miles
+ * Rotate tires every 5,000 miles
  * Check vehicle every 6 months
  */
 
@@ -25,7 +25,7 @@ public class Model {
     public static Vehicle getVehicle(String vehicleKey) throws FileNotFoundException, IOException 
     {
     	Boolean inList = false;
-    	File inFile = new File("VehicleList2.txt");
+    	File inFile = new File("VehicleList3.txt");
 		Scanner read = new Scanner(inFile);
 		String[] arr;
     	ArrayList<String> textList = new ArrayList<String>();
@@ -33,12 +33,16 @@ public class Model {
 			textList.add(read.nextLine());
     	}
     	read.close();
+    	System.out.println(textList);
 
     	for(String line: textList)
     	{
     		// Split 1 line of text into 3 parts, vehicleName at arr[0], date at arr[1], issue at arr[2]
     		arr = line.split("	");
-    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], arr[2]);
+    		int year = Integer.parseInt(arr[1]);
+    		int mileage = Integer.parseInt(arr[2]);
+    		int mileageSince =   Integer.parseInt(arr[4]);
+    		Vehicle newVehicle = new Vehicle(arr[0], year, mileage, arr[3], mileageSince );
     		listofVehicles.add(newVehicle);
     	}
     	
@@ -66,7 +70,7 @@ public class Model {
 		return null;
     }
 
-	public static String[] checkVehicle(String vehicleName, String date, String issue)
+    public static String[] checkVehicle(String vehicleMake, int vehicleYear, int totalMileage, String date, int mileageSinceMT) 
 	{
 		String[] messages = new String[5];
 		int i = 0;
@@ -82,22 +86,24 @@ public class Model {
         // Get year from date
         int year = currentDate.getYear();
   
-        // Print the day, month, and year
-        System.out.println("Day: " + day);
-        System.out.println("Month: " + month);
-        System.out.println("Year: " + year);
+        // Print statements for checking
+      // System.out.println("Day: " + day);
+       // System.out.println("Month: " + month);
+       // System.out.println("Year: " + year);
+        //System.out.println("month substring = " + date.substring(0,2) );
+		//System.out.println("monthdiff = " + monthdiff);
+		//System.out.println("monthval = " + todaymonth);
+        
 		int yeardiff = 2021 - Integer.parseInt(date.substring(6));
 		int monthdiff = todaymonth - Integer.parseInt(date.substring(0,2));
-		System.out.println("month substring = " + date.substring(0,2) );
-		System.out.println("monthdiff = " + monthdiff);
-		System.out.println("monthval = " + todaymonth);
+		
 		//int daydiff;
 		if( yeardiff > 0 )
 		{
 			messages[i] = "It has been " + yeardiff + " years since your last maintenance\n";
 			i++;
 		}
-		else if ( monthdiff > 6 )
+		if ( monthdiff > 6 )
 		{
 			messages[i] = "It has been " + monthdiff + " months since your last maintenance\n";
 			i++;
@@ -107,27 +113,23 @@ public class Model {
 			messages[i] = "Your last maintenance was already done within the last 6 months\n";
 			i++;
 		}
+		
+		if ( mileageSinceMT >= 7500 )
+		{
+			messages[i] = "Your vehicle needs an oil change\n";
+			i++;
+		}
+		if ( mileageSinceMT >= 30000 )
+		{
+			messages[i] = "Your vehicle needs an transmission fluid change\n";
+			i++;
+		}
+		if ( mileageSinceMT >= 5000)
+		{
+			messages[i] = "Your vehicle needs its tires rotated";
+			i++;
+		}
 	
-		if( issue.equals("Engine Repair") )
-		{
-			messages[i] = "You need a engine repair\n";
-			i++;
-		}
-		if( issue.equals("Vehicle Maintenance") )
-		{
-			messages[i] = "You need vehicle maintenance\n";
-			i++;
-		}
-		if( issue.equals("Oil Leak Repair") )
-		{
-			messages[i] = "You need an oil leak repaired\n";
-			i++;
-		}
-		if( issue.equals("Broken Windowshield") )
-		{
-			messages[i] = "You need a windowshield replacement\n";
-			i++;
-		}
 		return messages;
 	}
 	
@@ -144,4 +146,6 @@ public class Model {
     	}
         read.close();
 	}
+
+	
 }

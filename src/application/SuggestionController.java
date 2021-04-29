@@ -2,8 +2,6 @@ package application;
 
 import java.io.IOException;
 
-import application.model.Model;
-import application.model.Vehicle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +13,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Model;
+import model.Vehicle;
 
 public class SuggestionController {
 	AnchorPane mainPane;
@@ -55,7 +55,7 @@ public class SuggestionController {
     		a.setContentText("Vehicle not found in log, please try again");
     		return;
     	}
-    	String[] newText = Model.checkVehicle(foundVeh.getVehicleMake(), foundVeh.getlastCheckedDate(), foundVeh.getCurrentIssue());
+    	String[] newText = Model.checkVehicle(foundVeh.getVehicleMake(), foundVeh.getVehicleYear(), foundVeh.getTotalMileage(), foundVeh.getlastMaintenanceDate(), foundVeh.getMileageSinceMT() );
     	message.setText(vehicleToSearch + "\n");
     	for(int i = 0; i < newText.length; i++ )
     	{
