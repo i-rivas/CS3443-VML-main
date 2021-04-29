@@ -174,6 +174,12 @@ public class Model {
 			i++;
 		}
 		
+		if ( vehicleMake.equals("Honda") && vehicleYear < 2016)
+		{
+			messages[i] = "RECALL: Honda vehicles need repairs to transmission!\n";
+			i++;
+		}
+		
 		if ( mileageSinceMT >= 7500 )
 		{
 			messages[i] = "Your vehicle needs an oil change\n";
