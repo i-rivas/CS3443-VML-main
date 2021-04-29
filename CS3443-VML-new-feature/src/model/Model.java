@@ -10,7 +10,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,7 +59,7 @@ public class Model {
 		File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
 		HashMap<String, String> dates = new HashMap<String, String>();
-		Pattern pattern = Pattern.compile("([0-9]{2}-[0-9]{2}-[0-9]{4})");
+		Pattern pattern = Pattern.compile("([0-9]{2}/[0-9]{2}/[0-9]{4})");
 		Matcher matcher;
 		int count = 0;
     	
@@ -63,14 +67,20 @@ public class Model {
 			items.add(read.nextLine());
 			matcher = pattern.matcher(items.get(count));
 			if (matcher.find()) {
-				System.out.println(matcher.group());
+				dates.put(matcher.group(), items.get(count));
 			}
 			count++;
     	}
+    	System.out.println(dates);
     	
-    	for (String inv: items) {
-    		printList.getItems().add(inv);
+    	SortedSet<String> keys = new TreeSet<>(dates.keySet());
+    	for (String key : keys) { 
+    	   printList.getItems().add(dates.get(key));
     	}
+    	
+    	/*for (String inv: items) {
+    		printList.getItems().add(inv);
+    	}*/
         read.close();
 	}
 	
