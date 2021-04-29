@@ -99,8 +99,8 @@ public class Model {
     	{
     		// Split 1 line of text into 3 parts, vehicleName at arr[0], date at arr[1], issue at arr[2]
     		arr = line.split("	");
-//    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], arr[2]);
-  //  		listofVehicles.add(newVehicle);
+    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], arr[2]);
+    		listofVehicles.add(newVehicle);
     	}
     	
     	for(Vehicle veh: listofVehicles)
