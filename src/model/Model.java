@@ -183,20 +183,29 @@ public class Model {
 			i++;
 		}
 		
-		if ( mileageSinceMT >= 7500 )
+		if ( mileageSinceMT < 5000 )
 		{
-			messages[i] = "Your vehicle needs an oil change\n";
+			messages[i] = "Your vehicle seems to be up to date!";
 			i++;
+
 		}
-		if ( mileageSinceMT >= 30000 )
+		else
 		{
-			messages[i] = "Your vehicle needs an transmission fluid change\n";
-			i++;
-		}
-		if ( mileageSinceMT >= 5000)
-		{
-			messages[i] = "Your vehicle needs its tires rotated";
-			i++;
+			if ( mileageSinceMT >= 7500 )
+			{
+				messages[i] = "Your vehicle needs an oil change\n";
+				i++;
+			}
+			if ( mileageSinceMT >= 30000 )
+			{
+				messages[i] = "Your vehicle needs an transmission fluid change\n";
+				i++;
+			}
+			if ( mileageSinceMT >= 5000)
+			{
+				messages[i] = "Your vehicle needs its tires rotated";
+				i++;
+			}
 		}
 	
 		return messages;
