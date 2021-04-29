@@ -28,12 +28,13 @@ import javafx.scene.control.ListView;
 
 public class Model {
 	
-	private static ArrayList<String> items = new ArrayList<String>();
+	private static ArrayList<String> items;
 	public static ArrayList<Vehicle> listofVehicles = new ArrayList<Vehicle>();
 	
 	public static void getVehicleList(ListView<String> printList) throws FileNotFoundException {
     	File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
+		items = new ArrayList<String>();
     	
     	while (read.hasNextLine()) {
 			items.add(read.nextLine());
@@ -47,6 +48,7 @@ public class Model {
 	public static void getVehicleListAlpha(ListView<String> printList) throws FileNotFoundException {
 		File inFile = new File("VehicleList.txt");
 		Scanner read = new Scanner(inFile);
+		items = new ArrayList<String>();
     	
     	while (read.hasNextLine()) {
 			items.add(read.nextLine());
@@ -65,6 +67,7 @@ public class Model {
 		Pattern pattern = Pattern.compile("([0-9]{2}/[0-9]{2}/[0-9]{4})");
 		Matcher matcher;
 		int count = 0;
+		items = new ArrayList<String>();
     	
     	while (read.hasNextLine()) {
 			items.add(read.nextLine());
