@@ -70,44 +70,30 @@ public class Model {
     	*/
 		return null;
     }
+    
 
     public static String[] checkVehicle(String vehicleMake, String vehicleModel, int vehicleYear, int totalMileage, String date, int mileageSinceMT) 
 	{
-		String[] messages = new String[5];
+		String[] messages = new String[10];
 		int i = 0;
-		// Date format: mm/dd/yyyy
-		 // Get an instance of LocalTime
-        // from date
+		
         LocalDate currentDate = LocalDate.now();
-        // Get day from date
         int day = currentDate.getDayOfMonth();
-        // Get month from date
         Month month = currentDate.getMonth();
         int todaymonth = month.getValue();
-        // Get year from date
-        
         int currYear = currentDate.getYear();
+        
         int yearOfVeh = Integer.parseInt(date.substring(6));
         int monthOfVeh = Integer.parseInt(date.substring(0,2));
         int dayOfVeh = Integer.parseInt(date.substring(3,5));
-		int yeardiff = currYear - yearOfVeh;
-		//int monthdiff = todaymonth - Integer.parseInt(date.substring(0,2));
-		int monthdiff = (currYear - yearOfVeh) * 12 + ( todaymonth - monthOfVeh ) + 1;
+		int yeardiff;
+		int monthdiff;
 		
-        // Print statements for checking
-		/*
-      System.out.println("Day: " + day);
-       System.out.println("Month: " + month);
-       System.out.println("Year: " + currYear);
-              System.out.println("YearOfVeh: " + yearOfVeh);
-        System.out.println("month substring = " + date.substring(0,2) );
-		System.out.println("monthdiff = " + monthdiff);
-		System.out.println("monthval = " + todaymonth);
-        */
+
         LocalDate vehDate = LocalDate.of(yearOfVeh, monthOfVeh, dayOfVeh);
         System.out.println("Day: " + vehDate.getDayOfMonth());
-       System.out.println("Month: " + vehDate.getMonth());
-       System.out.println("Year: " + vehDate.getYear());
+        System.out.println("Month: " + vehDate.getMonth());
+        System.out.println("Year: " + vehDate.getYear());
 		Period diff = Period.between(vehDate, currentDate);
 		yeardiff = diff.getYears();
 		monthdiff = diff.getMonths();
@@ -127,6 +113,12 @@ public class Model {
 		else 
 		{
 			messages[i] = "Your last maintenance was already done within the last 6 months\n";
+			i++;
+		}
+		
+		if ( vehicleMake.equals("Honda") && vehicleYear < 2016)
+		{
+			messages[i] = "RECALL: Honda vehicles need repairs to transmission!\n";
 			i++;
 		}
 		

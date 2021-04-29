@@ -29,8 +29,6 @@ public class Vehicle {
 	{
 		this.vehicleName = vehicleMake + " " + vehicleModel;
 	}
-	
-	
 
 	public String getVehicleMake()
 	{
