@@ -19,7 +19,7 @@ LogPageController.java: This class gives you the ability to check to make sure t
 
 AddPageController: This class allows you to add a vehicle to your list, you would just need to include Make, Model, Year, Total Mileage, Date of Last Maintenance, and the Mileage of the last maintenance that was performed on the vehicle.
 
-SuggestionController.java: 
+SuggestionController.java: This class will allow you to search for a vehicle so that the application can suggest to you some recommended maintenance to your vehicle such as oil change, transmission fluid change, and tire rotation. It will also notify you of any recalls a specific vehicle may have. You can also schedule an appointment by selecting a date by clicking on the caldendar button, and filling in the vehicle name, repair shop location, and time of appointment fields. After that you can export the appointment to a file where appointments will be kept.
 
 VehicleListController.java: For this class, there is a drop down menu in the top left of the screen containing three buttons. Each button will display 'VehicleList2.txt' sorted in three different ways. The 'Most Recent' button will display the vehicles in entry order from oldest to most recent, 'Alphabetically' will display the vehicles in lexigraphical order, and 'Date' will sort the vehicles by date from oldest to newest.
 
