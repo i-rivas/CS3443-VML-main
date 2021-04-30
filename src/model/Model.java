@@ -89,7 +89,7 @@ public class Model {
 	public static Vehicle getVehicle(String vehicleKey) throws FileNotFoundException, IOException 
     {
     	Boolean inList = false;
-    	File inFile = new File("VehicleList3.txt");
+    	File inFile = new File("VehicleList2.txt");
 		Scanner read = new Scanner(inFile);
 		String[] arr = new String[6];
     	ArrayList<String> textList = new ArrayList<String>();
@@ -150,16 +150,39 @@ public class Model {
 		int yeardiff;
 		int monthdiff;
 		
-
         LocalDate vehDate = LocalDate.of(yearOfVeh, monthOfVeh, dayOfVeh);
+        /*
         System.out.println("Day: " + vehDate.getDayOfMonth());
         System.out.println("Month: " + vehDate.getMonth());
         System.out.println("Year: " + vehDate.getYear());
+        */
 		Period diff = Period.between(vehDate, currentDate);
 		yeardiff = diff.getYears();
 		monthdiff = diff.getMonths();
-		System.out.println("yeardiff = " + yeardiff);
-		System.out.println("monthdiff = " + monthdiff);
+	//	System.out.println("yeardiff = " + yeardiff);
+	//	System.out.println("monthdiff = " + monthdiff);
+		
+		//Sample Recall Notifications
+		if ( vehicleMake.equals("Honda") && vehicleYear < 2016)
+		{
+			messages[i] = "RECALL ALERT: Honda vehicles need repairs to transmission!\n";
+			i++;
+		}
+		if ( vehicleMake.equals("Ford") && vehicleModel.equals("Expedition") )
+		{
+			messages[i] = "RECALL ALERT: Ford Expeditions require a change to the airbags!\n";
+			i++;
+		}
+		if ( vehicleMake.equals("Dodge") && vehicleModel.equals("Charger") )
+		{
+			messages[i] = "RECALL ALERT: Dodge Chargers require complete tire replacement!\n";
+			i++;
+		}
+		if ( vehicleYear < 2000 )
+		{
+			messages[i] = "RECALL ALERT: Any vehicle older than 2000 should receive immediate maintenance!\n";
+			i++;
+		}
 
 		if( yeardiff > 0 )
 		{
@@ -177,15 +200,9 @@ public class Model {
 			i++;
 		}
 		
-		if ( vehicleMake.equals("Honda") && vehicleYear < 2016)
-		{
-			messages[i] = "RECALL: Honda vehicles need repairs to transmission!\n";
-			i++;
-		}
-		
 		if ( mileageSinceMT < 5000 )
 		{
-			messages[i] = "Your vehicle seems to be up to date!";
+			messages[i] = "Your vehicle seems to be up to date!(no oil change, transmission fluid change, or tire rotation needed)";
 			i++;
 
 		}
@@ -207,7 +224,6 @@ public class Model {
 				i++;
 			}
 		}
-	
 		return messages;
 	}
 	
