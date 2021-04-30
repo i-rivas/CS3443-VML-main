@@ -121,15 +121,7 @@ public class Model {
     	{
     		return null;
     	}
-    	
-    	/*
-    	for(Vehicle veh: listofVehicles)
-    	{
-    		System.out.println("Vehicle Make: " + veh.getVehicleMake());
-    		System.out.println("Date: " + veh.getlastCheckedDate());
-    		System.out.println("Issue: " + veh.getCurrentIssue());
-    	}
-    	*/
+    	 
 		return null;
     }
 	
@@ -151,17 +143,11 @@ public class Model {
 		int monthdiff;
 		
         LocalDate vehDate = LocalDate.of(yearOfVeh, monthOfVeh, dayOfVeh);
-        /*
-        System.out.println("Day: " + vehDate.getDayOfMonth());
-        System.out.println("Month: " + vehDate.getMonth());
-        System.out.println("Year: " + vehDate.getYear());
-        */
+
 		Period diff = Period.between(vehDate, currentDate);
 		yeardiff = diff.getYears();
 		monthdiff = diff.getMonths();
-	//	System.out.println("yeardiff = " + yeardiff);
-	//	System.out.println("monthdiff = " + monthdiff);
-		
+
 		//Sample Recall Notifications
 		if ( vehicleMake.equals("Honda") && vehicleYear < 2016)
 		{
@@ -191,12 +177,12 @@ public class Model {
 		}
 		else if ( monthdiff >= 6 )
 		{
-			messages[i] = "It has been " + monthdiff + " months since your last maintenance\n";
+			messages[i] = "It has been " + monthdiff + " months since your last maintenance.\n";
 			i++;
 		}
 		else 
 		{
-			messages[i] = "Your last maintenance was already done within the last 6 months\n";
+			messages[i] = "Your last maintenance was already done within the last 6 months.\n";
 			i++;
 		}
 		
