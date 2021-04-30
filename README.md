@@ -15,7 +15,9 @@ Main.java: Start up the Menu.fxml to display to the user
 
 MenuControl.java: The starting point of the program, where the user will be introduced to three buttons, all of which do three different tasks. The window has been modified to make it aesthetically pleasing to the user.
 
-LogPageController.java: 
+LogPageController.java: This class gives you the ability to check to make sure the vehicle list is up to date by clicking on the “Refresh Log” button, and it also allows for the export of a highlighted vehicle row when the “Export” button is clicked. Additionally, if a car needs to be added, clicking on the “Add Car” button takes you to the “AddPage” scene.
+
+AddPageController: This class allows you to add a vehicle to your list, you would just need to include Make, Model, Year, Total Mileage, Date of Last Maintenance, and the Mileage of the last maintenance that was performed on the vehicle.
 
 SuggestionController.java: 
 
