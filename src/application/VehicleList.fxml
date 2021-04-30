@@ -19,7 +19,6 @@
                       <MenuItem fx:id="option2" mnemonicParsing="false" onAction="#showVehicleListDate" text="Date" />
                     </items>
                   </SplitMenuButton>
-                  <Button fx:id="showList" mnemonicParsing="false" onAction="#showVehicleList" text="ShowList" />
                   <Button mnemonicParsing="false" onAction="#switch2Main" text="Home" />
                </items>
             </ToolBar>
