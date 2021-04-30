@@ -25,9 +25,6 @@ public class VehicleListController {
     private AnchorPane mainPane;
 	
 	@FXML
-	private Button showList;
-	
-	@FXML
 	private SplitMenuButton option_default;
 
     @FXML

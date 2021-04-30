@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,8 +21,8 @@ import java.util.TreeSet;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 
@@ -90,7 +91,7 @@ public class Model {
     	Boolean inList = false;
     	File inFile = new File("VehicleList2.txt");
 		Scanner read = new Scanner(inFile);
-		String[] arr;
+		String[] arr = new String[6];
     	ArrayList<String> textList = new ArrayList<String>();
     	while (read.hasNextLine()) {
 			textList.add(read.nextLine());
@@ -101,13 +102,16 @@ public class Model {
     	{
     		// Split 1 line of text into 3 parts, vehicleName at arr[0], date at arr[1], issue at arr[2]
     		arr = line.split("	");
-    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], arr[2]);
+    		int year = Integer.parseInt(arr[2]);
+    		int mileage = Integer.parseInt(arr[3]);
+    		int mileageSince =   Integer.parseInt(arr[5]);
+    		Vehicle newVehicle = new Vehicle(arr[0], arr[1], year, mileage, arr[4], mileageSince);
     		listofVehicles.add(newVehicle);
     	}
     	
     	for(Vehicle veh: listofVehicles)
     	{
-    		if( vehicleKey.equals(veh.getVehicleMake()) )
+    		if( vehicleKey.equals(veh.getVehicleName()) )
     		{
     			inList = true;
     			return veh;
@@ -129,38 +133,40 @@ public class Model {
 		return null;
     }
 	
-	public static String[] checkVehicle(String vehicleName, String date, String issue)
+	public static String[] checkVehicle(String vehicleMake, String vehicleModel, int vehicleYear, int totalMileage, String date, int mileageSinceMT) 
 	{
 		String[] messages = new String[5];
 		int i = 0;
-		// Date format: mm/dd/yyyy
-		 // Get an instance of LocalTime
-        // from date
+		
         LocalDate currentDate = LocalDate.now();
-        // Get day from date
         int day = currentDate.getDayOfMonth();
-        // Get month from date
         Month month = currentDate.getMonth();
         int todaymonth = month.getValue();
-        // Get year from date
-        int year = currentDate.getYear();
-  
-        // Print the day, month, and year
-        System.out.println("Day: " + day);
-        System.out.println("Month: " + month);
-        System.out.println("Year: " + year);
-		int yeardiff = 2021 - Integer.parseInt(date.substring(6));
-		int monthdiff = todaymonth - Integer.parseInt(date.substring(0,2));
-		System.out.println("month substring = " + date.substring(0,2) );
+        int currYear = currentDate.getYear();
+        
+        int yearOfVeh = Integer.parseInt(date.substring(6));
+        int monthOfVeh = Integer.parseInt(date.substring(0,2));
+        int dayOfVeh = Integer.parseInt(date.substring(3,5));
+		int yeardiff;
+		int monthdiff;
+		
+
+        LocalDate vehDate = LocalDate.of(yearOfVeh, monthOfVeh, dayOfVeh);
+        System.out.println("Day: " + vehDate.getDayOfMonth());
+        System.out.println("Month: " + vehDate.getMonth());
+        System.out.println("Year: " + vehDate.getYear());
+		Period diff = Period.between(vehDate, currentDate);
+		yeardiff = diff.getYears();
+		monthdiff = diff.getMonths();
+		System.out.println("yeardiff = " + yeardiff);
 		System.out.println("monthdiff = " + monthdiff);
-		System.out.println("monthval = " + todaymonth);
-		//int daydiff;
+
 		if( yeardiff > 0 )
 		{
-			messages[i] = "It has been " + yeardiff + " years since your last maintenance\n";
+			messages[i] = "It has been " + yeardiff + " years and " + monthdiff + " months since your last maintenance\n";
 			i++;
 		}
-		else if ( monthdiff > 6 )
+		else if ( monthdiff >= 6 )
 		{
 			messages[i] = "It has been " + monthdiff + " months since your last maintenance\n";
 			i++;
@@ -170,39 +176,90 @@ public class Model {
 			messages[i] = "Your last maintenance was already done within the last 6 months\n";
 			i++;
 		}
+		
+		if ( vehicleMake.equals("Honda") && vehicleYear < 2016)
+		{
+			messages[i] = "RECALL: Honda vehicles need repairs to transmission!\n";
+			i++;
+		}
+		
+		if ( mileageSinceMT < 5000 )
+		{
+			messages[i] = "Your vehicle seems to be up to date!";
+			i++;
+
+		}
+		else
+		{
+			if ( mileageSinceMT >= 7500 )
+			{
+				messages[i] = "Your vehicle needs an oil change\n";
+				i++;
+			}
+			if ( mileageSinceMT >= 30000 )
+			{
+				messages[i] = "Your vehicle needs an transmission fluid change\n";
+				i++;
+			}
+			if ( mileageSinceMT >= 5000)
+			{
+				messages[i] = "Your vehicle needs its tires rotated";
+				i++;
+			}
+		}
 	
-		if( issue.equals("Engine Repair") )
-		{
-			messages[i] = "You need a engine repair\n";
-			i++;
-		}
-		if( issue.equals("Vehicle Maintenance") )
-		{
-			messages[i] = "You need vehicle maintenance\n";
-			i++;
-		}
-		if( issue.equals("Oil Leak Repair") )
-		{
-			messages[i] = "You need an oil leak repaired\n";
-			i++;
-		}
-		if( issue.equals("Broken Windowshield") )
-		{
-			messages[i] = "You need a windowshield replacement\n";
-			i++;
-		}
 		return messages;
 	}
 	
-	//Method that adds vehicle into the VehicleList.txt file @Isai
-	public static void addVehicle(String makeModel, String mileage, String lastServiceMileage) throws IOException {
+
+	//This method adds vehicle into the VehicleList.txt file @Isai
+	public static void addVehicle(String Make, String CarModel, String Year, String TotalMileage, String DateOfLastMaintenance, String MileageOfLastMaintenance) throws IOException {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("VehicleList.txt", true));
 			out.newLine();
-			out.write(makeModel + "	" + mileage + " " + lastServiceMileage);
+			out.write(Make + "   " + CarModel + "   " + Year  + "   " + TotalMileage  + "   " + DateOfLastMaintenance  + "   " + MileageOfLastMaintenance);
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//This method reads VehicleList.txt file to ListView item @Isai
+	public static void readVehicleList(ListView<String> loglist, Label txt2display) throws FileNotFoundException {
+		
+		txt2display.setText("");
+		loglist.getItems().clear();
+		
+	
+		
+		File VehicleInfo = new File("VehicleList.txt");
+		try (Scanner read = new Scanner(VehicleInfo)) {
+			ArrayList<String> info = new ArrayList<String>();
+			
+			while (read.hasNextLine()) {
+				info.add(read.nextLine());
+			}
+			for (String cars: info) {
+				loglist.getItems().add(cars);
+			}
+		}
+		
+	}
+
+	//This method adds exports highlighted vehicle @Isai
+	public static void exportVehicle(ListView<String> loglist, Label txt2display) {
+		String currentVehicle = loglist.getSelectionModel().getSelectedItem();
+		
+		try {
+			FileWriter myWriter = new FileWriter("VehicleExport.txt");
+			myWriter.write(currentVehicle);
+			myWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		txt2display.setText("Successfully Exported!");
+		
 	}
 }
