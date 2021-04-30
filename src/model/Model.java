@@ -79,7 +79,7 @@ public class Model {
 			}
 			count++;
     	}
-    	System.out.println(dates);
+    	//System.out.println(dates);
     	
     	SortedSet<String> keys = new TreeSet<>(dates.keySet());
     	for (String key : keys) { 
