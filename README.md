@@ -24,6 +24,7 @@ SuggestionController.java: This class will allow you to search for a vehicle so 
 VehicleListController.java: For this class, there is a drop down menu in the top left of the screen containing three buttons. Each button will display 'VehicleList2.txt' sorted in three different ways. The 'Most Recent' button will display the vehicles in entry order from oldest to most recent, 'Alphabetically' will display the vehicles in lexigraphical order, and 'Date' will sort the vehicles by date from oldest to newest.
 
 Known Bugs: Visual bug error, the tabs and spaces are not uniform between parameters in the VehicleList2.txt, when displaying them in VehicleList and LogPage.
+Possible Bug: When adding a vehicle, the program, at times, adds a new blank like before adding the vehicle.
 
 Login Information: No login required
 
