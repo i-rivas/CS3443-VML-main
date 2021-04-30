@@ -28,11 +28,13 @@ import javafx.scene.control.ListView;
 
 public class Model {
 	
-	private static ArrayList<String> items;
+
+	private static ArrayList<String> items;	
+
 	public static ArrayList<Vehicle> listofVehicles = new ArrayList<Vehicle>();
 	
 	public static void getVehicleList(ListView<String> printList) throws FileNotFoundException {
-    	File inFile = new File("VehicleList.txt");
+    	File inFile = new File("VehicleList2.txt");
 		Scanner read = new Scanner(inFile);
 		items = new ArrayList<String>();
     	
@@ -46,7 +48,7 @@ public class Model {
 	}
 
 	public static void getVehicleListAlpha(ListView<String> printList) throws FileNotFoundException {
-		File inFile = new File("VehicleList.txt");
+		File inFile = new File("VehicleList2.txt");
 		Scanner read = new Scanner(inFile);
 		items = new ArrayList<String>();
     	
@@ -61,7 +63,7 @@ public class Model {
 	}
 	
 	public static void getVehicleListDate(ListView<String> printList) throws FileNotFoundException {
-		File inFile = new File("VehicleList.txt");
+		File inFile = new File("VehicleList2.txt");
 		Scanner read = new Scanner(inFile);
 		HashMap<String, String> dates = new HashMap<String, String>();
 		Pattern pattern = Pattern.compile("([0-9]{2}/[0-9]{2}/[0-9]{4})");
@@ -143,11 +145,9 @@ public class Model {
 		int monthdiff;
 		
         LocalDate vehDate = LocalDate.of(yearOfVeh, monthOfVeh, dayOfVeh);
-
 		Period diff = Period.between(vehDate, currentDate);
 		yeardiff = diff.getYears();
 		monthdiff = diff.getMonths();
-
 		//Sample Recall Notifications
 		if ( vehicleMake.equals("Honda") && vehicleYear < 2016)
 		{
@@ -182,7 +182,9 @@ public class Model {
 		}
 		else 
 		{
+			messages[i] = "Your last maintenance was already done within the last 6 months\n";
 			messages[i] = "Your last maintenance was already done within the last 6 months.\n";
+
 			i++;
 		}
 		
@@ -213,7 +215,6 @@ public class Model {
 		return messages;
 	}
 	
-
 	//This method adds vehicle into the VehicleList.txt file @Isai
 	public static void addVehicle(String Make, String CarModel, String Year, String TotalMileage, String DateOfLastMaintenance, String MileageOfLastMaintenance) throws IOException {
 		try {
@@ -234,7 +235,7 @@ public class Model {
 		
 	
 		
-		File VehicleInfo = new File("VehicleList.txt");
+		File VehicleInfo = new File("VehicleList2.txt");
 		try (Scanner read = new Scanner(VehicleInfo)) {
 			ArrayList<String> info = new ArrayList<String>();
 			
