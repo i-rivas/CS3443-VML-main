@@ -216,7 +216,7 @@ public class Model {
 	//This method adds vehicle into the VehicleList.txt file @Isai
 	public static void addVehicle(String Make, String CarModel, String Year, String TotalMileage, String DateOfLastMaintenance, String MileageOfLastMaintenance) throws IOException {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("VehicleList.txt", true));
+			BufferedWriter out = new BufferedWriter(new FileWriter("VehicleList2.txt", true));
 			out.newLine();
 			out.write(Make + "   " + CarModel + "   " + Year  + "   " + TotalMileage  + "   " + DateOfLastMaintenance  + "   " + MileageOfLastMaintenance);
 			out.close();
