@@ -182,9 +182,7 @@ public class Model {
 		}
 		else 
 		{
-			messages[i] = "Your last maintenance was already done within the last 6 months\n";
 			messages[i] = "Your last maintenance was already done within the last 6 months.\n";
-
 			i++;
 		}
 		
